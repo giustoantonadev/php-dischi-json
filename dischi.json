@@ -1,0 +1,72 @@
+[
+    {
+        "titolo": "Random Access Memories",
+        "artista": "Daft Punk",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/a\/a7\/Random_Access_Memories.jpg",
+        "anno": 2013,
+        "genere": "Electronic"
+    },
+    {
+        "titolo": "To Pimp a Butterfly",
+        "artista": "Kendrick Lamar",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/9\/9e\/To_Pimp_a_Butterfly_cover.png",
+        "anno": 2015,
+        "genere": "Hip Hop"
+    },
+    {
+        "titolo": "Abbey Road",
+        "artista": "The Beatles",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/4\/42\/Beatles_-_Abbey_Road.jpg",
+        "anno": 1969,
+        "genere": "Rock"
+    },
+    {
+        "titolo": "Back to Black",
+        "artista": "Amy Winehouse",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/2\/2f\/Amy_Winehouse_-_Back_to_Black_%28album%29.png",
+        "anno": 2006,
+        "genere": "Soul"
+    },
+    {
+        "titolo": "Nevermind",
+        "artista": "Nirvana",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/b\/b7\/NirvanaNevermindalbumcover.jpg",
+        "anno": 1991,
+        "genere": "Grunge"
+    },
+    {
+        "titolo": "Thriller",
+        "artista": "Michael Jackson",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/5\/55\/Michael_Jackson_-_Thriller.png",
+        "anno": 1982,
+        "genere": "Pop"
+    },
+    {
+        "titolo": "Kind of Blue",
+        "artista": "Miles Davis",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/9\/9c\/MilesDavisKindofBlue.jpg",
+        "anno": 1959,
+        "genere": "Jazz"
+    },
+    {
+        "titolo": "OK Computer",
+        "artista": "Radiohead",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/b\/ba\/Radiohead.okcomputer.albumart.jpg",
+        "anno": 1997,
+        "genere": "Alternative Rock"
+    },
+    {
+        "titolo": "Lemonade",
+        "artista": "Beyonc\u00e9",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/4\/4a\/Beyonce_-_Lemonade_%28Official_Album_Cover%29.png",
+        "anno": 2016,
+        "genere": "R&B"
+    },
+    {
+        "titolo": "The Dark Side of the Moon",
+        "artista": "Pink Floyd",
+        "url_cover": "https:\/\/upload.wikimedia.org\/wikipedia\/en\/3\/3b\/Dark_Side_of_the_Moon.png",
+        "anno": 1973,
+        "genere": "Progressive Rock"
+    }
+]
