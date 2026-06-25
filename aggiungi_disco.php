@@ -1,33 +1,63 @@
 <?php
-$titolo = $_POST['titolo'] ?? '';
-$artista = $_POST['artista'] ?? '';
-$anno = $_POST['anno'] ?? '';
-$url_cover = $_POST['url_cover'] ?? '';
 
-//controllo minimo dei campi
-if (!empty($titolo) && !empty($artista) && !empty($anno) && !empty($url_cover)) {
-    $disco = [
-        'titolo' => $titolo,
-        'artista' => $artista,
-        'anno' => $anno,
-        'url_cover' => $url_cover
-    ];
+// Recupero dei dati dal form
+$titolo = trim($_POST['titolo'] ?? '');
+$artista = trim($_POST['artista'] ?? '');
+$anno = trim($_POST['anno'] ?? '');
+$url_cover = trim($_POST['url_cover'] ?? '');
 
-    // Leggi il contenuto del file JSON esistente
-    $fileContent = file_get_contents('dischi.json');
-    $dischi = json_decode($fileContent, true);
+// Validazione avanzata
+$errors = [];
 
-    // Aggiungi il nuovo disco all'array
-    $dischi[] = $disco;
-
-    // Salva l'array aggiornato nel file JSON
-    file_put_contents('dischi.json', json_encode($dischi, JSON_PRETTY_PRINT));
-
-    // Reindirizza alla pagina principale dopo l'aggiunta
-    header('Location: index.php');
-    exit();
-} else {
-    echo "Tutti i campi sono obbligatori.";
+// Campi vuoti
+if ($titolo === '' || $artista === '' || $anno === '' || $url_cover === '') {
+    $errors[] = "Tutti i campi sono obbligatori.";
 }
 
-?>
+// Anno deve essere numerico e plausibile
+if (!ctype_digit($anno) || (int)$anno < 1900 || (int)$anno > date("Y") + 1) {
+    $errors[] = "L'anno inserito non è valido.";
+}
+
+// URL deve essere valido
+if (!filter_var($url_cover, FILTER_VALIDATE_URL)) {
+    $errors[] = "L'URL della copertina non è valido.";
+}
+
+// Se ci sono errori → li mostro e stoppo
+if (!empty($errors)) {
+    echo "<h2>Errore nell'inserimento:</h2>";
+    foreach ($errors as $err) {
+        echo "<p>- $err</p>";
+    }
+    echo '<p><a href="index.php">Torna indietro</a></p>';
+    exit;
+}
+
+// Leggo il file JSON
+$fileContent = file_get_contents('dischi.json');
+$dischi = json_decode($fileContent, true);
+
+// Se il JSON è vuoto o corrotto → inizializzo array vuoto
+if (!is_array($dischi)) {
+    $dischi = [];
+}
+
+// Creo il nuovo disco
+$nuovo_disco = [
+    "titolo" => $titolo,
+    "artista" => $artista,
+    "anno" => (int)$anno,
+    "url_cover" => $url_cover
+];
+
+// Aggiungo il disco
+$dischi[] = $nuovo_disco;
+
+// Riscrivo il JSON
+file_put_contents('dischi.json', json_encode($dischi, JSON_PRETTY_PRINT));
+
+// 7. Messaggio di successo + redirect automatico
+echo "<h2>Disco aggiunto con successo!</h2>";
+echo "<p>Verrai reindirizzato alla pagina principale...</p>";
+echo '<meta http-equiv="refresh" content="2; URL=index.php">';
