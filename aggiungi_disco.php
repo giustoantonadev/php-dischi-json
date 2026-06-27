@@ -54,10 +54,22 @@ $nuovo_disco = [
 // Aggiungo il disco
 $dischi[] = $nuovo_disco;
 
-// Riscrivo il JSON
-file_put_contents('dischi.json', json_encode($dischi, JSON_PRETTY_PRINT));
+// Codifico il JSON e controllo errori
+$json = json_encode($dischi, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+if ($json === false || json_last_error() !== JSON_ERROR_NONE) {
+    echo "<h2>Errore: impossibile codificare il JSON.</h2>";
+    echo '<p><a href="index.php">Torna indietro</a></p>';
+    exit;
+}
 
-// 7. Messaggio di successo + redirect automatico
-echo "<h2>Disco aggiunto con successo!</h2>";
-echo "<p>Verrai reindirizzato alla pagina principale...</p>";
-echo '<meta http-equiv="refresh" content="2; URL=index.php">';
+// Riscrivo il file in modo sicuro (lock)
+$bytes = @file_put_contents('dischi.json', $json, LOCK_EX);
+if ($bytes === false) {
+    echo "<h2>Errore: impossibile scrivere su dischi.json.</h2>";
+    echo '<p><a href="index.php">Torna indietro</a></p>';
+    exit;
+}
+
+// Redirect alla pagina principale
+header('Location: index.php');
+exit;

@@ -1,6 +1,13 @@
 <?php
-$dischi = file_get_contents('dischi.json');
-$dischi = json_decode($dischi, true);
+$dischi_raw = @file_get_contents('dischi.json');
+if ($dischi_raw === false) {
+    $dischi = [];
+} else {
+    $dischi = json_decode($dischi_raw, true);
+    if (!is_array($dischi)) {
+        $dischi = [];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -172,10 +179,10 @@ $dischi = json_decode($dischi, true);
             <h2>Aggiungi un nuovo disco</h2>
 
             <form action="aggiungi_disco.php" method="POST">
-                <input type="text" name="titolo" placeholder="Titolo">
-                <input type="text" name="artista" placeholder="Artista">
-                <input type="text" name="anno" placeholder="Anno">
-                <input type="text" name="url_cover" placeholder="URL Copertina">
+                <input type="text" name="titolo" placeholder="Titolo" required>
+                <input type="text" name="artista" placeholder="Artista" required>
+                <input type="text" name="anno" placeholder="Anno" required>
+                <input type="text" name="url_cover" placeholder="URL Copertina" required>
                 <button type="submit">Aggiungi</button>
             </form>
         </div>
@@ -185,10 +192,10 @@ $dischi = json_decode($dischi, true);
     <div class="container">
         <?php foreach ($dischi as $disco) { ?>
             <div class="card">
-                <img src="<?php echo $disco['url_cover'] ?>" alt="">
-                <h2><?php echo $disco['titolo'] ?></h2>
-                <p><?php echo $disco['artista'] ?></p>
-                <p><?php echo $disco['anno'] ?></p>
+                <img src="<?php echo htmlspecialchars($disco['url_cover'] ?? '', ENT_QUOTES, 'UTF-8') ?>" alt="<?php echo htmlspecialchars($disco['titolo'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                <h2><?php echo htmlspecialchars($disco['titolo'] ?? '', ENT_QUOTES, 'UTF-8') ?></h2>
+                <p><?php echo htmlspecialchars($disco['artista'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+                <p><?php echo htmlspecialchars((string)($disco['anno'] ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
             </div>
         <?php } ?>
     </div>
